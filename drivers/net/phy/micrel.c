@@ -29,8 +29,12 @@
 #include <linux/micrel_phy.h>
 #include <linux/of.h>
 #include <linux/clk.h>
+<<<<<<< HEAD
 #include <linux/netdevice.h>
 #include <linux/etherdevice.h>
+=======
+#include <linux/delay.h>
+>>>>>>> 53a681671b862ed7df53f52c1f8793b53b27dd16
 
 /* Operation Mode Strap Override */
 #define MII_KSZPHY_OMSO				0x16
@@ -776,6 +780,12 @@ static int kszphy_resume(struct phy_device *phydev)
 	int ret;
 
 	genphy_resume(phydev);
+
+	/* After switching from power-down to normal mode, an internal global
+	 * reset is automatically generated. Wait a minimum of 1 ms before
+	 * read/write access to the PHY registers.
+	 */
+	usleep_range(1000, 2000);
 
 	ret = kszphy_config_reset(phydev);
 	if (ret)

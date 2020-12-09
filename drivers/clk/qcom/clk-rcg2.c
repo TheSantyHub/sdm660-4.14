@@ -137,6 +137,7 @@ static int update_config(struct clk_rcg2 *rcg, u32 cfg)
 
 	WARN_CLK(hw->core, name, count == 0,
 			"rcg didn't update its configuration.");
+
 	return -EBUSY;
 }
 
